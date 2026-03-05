@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app_clean_architecture/features/daily_news/presentation/bloc/article/remote/remote_article_bloc.dart';
+import 'package:news_app_clean_architecture/features/daily_news/presentation/bloc/article/remote/remote_article_event.dart';
 import 'package:news_app_clean_architecture/features/daily_news/presentation/bloc/article/remote/remote_article_state.dart';
 
 import '../../../domain/entities/article.dart';
@@ -12,10 +13,43 @@ class DailyNews extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _buildPage();
+
+    return Scaffold(
+      appBar: _buildAppbar(context),
+      body: BlocBuilder<RemoteArticlesBloc, RemoteArticlesState>(
+        builder: (context, state) {
+          if (state is RemoteArticlesLoading) {
+            return const Center(
+              child: CupertinoActivityIndicator(),
+            );
+          }
+
+          if (state is RemoteArticlesError) {
+            return _buildErrorState(context, state.message);
+          }
+
+          if (state is RemoteArticlesDone) {
+            return _buildArticlesList(context, state.articles);
+          }
+
+          return const SizedBox();
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          final result = await Navigator.pushNamed(context, '/SubmitArticle');
+          if (result == true && context.mounted) {
+            context.read<RemoteArticlesBloc>().add(const GetArticles());
+          }
+        },
+        child: const Icon(Icons.add),
+      ),
+    );
   }
 
-  _buildAppbar(BuildContext context) {
+  // ---------------- APP BAR ----------------
+
+  PreferredSizeWidget _buildAppbar(BuildContext context) {
     return AppBar(
       title: const Text(
         'Daily News',
@@ -33,53 +67,67 @@ class DailyNews extends StatelessWidget {
     );
   }
 
-  _buildPage() {
-    return BlocBuilder<RemoteArticlesBloc, RemoteArticlesState>(
-      builder: (context, state) {
-        if (state is RemoteArticlesLoading) {
-          return Scaffold(
-              appBar: _buildAppbar(context),
-              body: const Center(child: CupertinoActivityIndicator()));
-        }
-        if (state is RemoteArticlesError) {
-          return Scaffold(
-              appBar: _buildAppbar(context),
-              body: const Center(child: Icon(Icons.refresh)));
-        }
-        if (state is RemoteArticlesDone) {
-          return _buildArticlesPage(context, state.articles!);
-        }
-        return const SizedBox();
-      },
-    );
-  }
+  // ---------------- ARTICLES LIST ----------------
 
-  Widget _buildArticlesPage(
+  Widget _buildArticlesList(
       BuildContext context, List<ArticleEntity> articles) {
-    List<Widget> articleWidgets = [];
-    for (var article in articles) {
-      articleWidgets.add(ArticleWidget(
-        article: article,
-        onArticlePressed: (article) => _onArticlePressed(context, article),
-      ));
-    }
+    return RefreshIndicator(
+      onRefresh: () async {
+        final bloc = context.read<RemoteArticlesBloc>();
+        bloc.add(const GetArticles());
+        await bloc.stream
+            .where((s) => s is RemoteArticlesDone || s is RemoteArticlesError)
+            .first;
+      },
+      child: ListView.builder(
+        physics: const BouncingScrollPhysics(),
+        itemCount: articles.length,
+        itemBuilder: (context, index) {
+          final article = articles[index];
 
-    return Scaffold(
-      appBar: _buildAppbar(context),
-      body: ListView(
-        children: articleWidgets,
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // TODO: REPLACE ROUTE WITH YOUR "ADD ARTICLE" PAGE
+          return ArticleWidget(
+            article: article,
+            onArticlePressed: (article) =>
+                _onArticlePressed(context, article),
+          );
         },
-        child: const Icon(Icons.add),
       ),
     );
   }
+
+  // ---------------- ERROR ----------------
+
+  Widget _buildErrorState(BuildContext context, String message) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            message,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 16),
+          ElevatedButton(
+            onPressed: () {
+              context
+                  .read<RemoteArticlesBloc>()
+                  .add(const GetArticles());
+            },
+            child: const Text("Retry"),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ---------------- NAVIGATION ----------------
 
   void _onArticlePressed(BuildContext context, ArticleEntity article) {
-    Navigator.pushNamed(context, '/ArticleDetails', arguments: article);
+    Navigator.pushNamed(
+      context,
+      '/ArticleDetails',
+      arguments: article,
+    );
   }
 
   void _onShowSavedArticlesViewTapped(BuildContext context) {

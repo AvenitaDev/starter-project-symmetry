@@ -6,8 +6,13 @@ part of 'news_api_service.dart';
 // RetrofitGenerator
 // **************************************************************************
 
+// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
+
 class _NewsApiService implements NewsApiService {
-  _NewsApiService(this._dio, {this.baseUrl}) {
+  _NewsApiService(
+    this._dio, {
+    this.baseUrl,
+  }) {
     baseUrl ??= 'https://newsapi.org/v2';
   }
 
@@ -16,13 +21,16 @@ class _NewsApiService implements NewsApiService {
   String? baseUrl;
 
   @override
-  Future<HttpResponse<List<ArticleModel>>> getNewsArticles(
-      {apiKey, country, category}) async {
+  Future<HttpResponse<List<ArticleModel>>> getNewsArticles({
+    apiKey,
+    country,
+    category,
+  }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'apiKey': apiKey,
       r'country': country,
-      r'category': category
+      r'category': category,
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};

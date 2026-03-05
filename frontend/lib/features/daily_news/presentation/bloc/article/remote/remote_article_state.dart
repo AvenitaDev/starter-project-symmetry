@@ -1,25 +1,34 @@
 import 'package:equatable/equatable.dart';
-import 'package:dio/dio.dart';
 import '../../../../domain/entities/article.dart';
 
+//This state is used to manage the state of the remote articles
+//Empty List of Articles is the initial state
 abstract class RemoteArticlesState extends Equatable {
-  final List<ArticleEntity> ? articles;
-  final DioError ? error;
-  
-  const RemoteArticlesState({this.articles,this.error});
-  
+  const RemoteArticlesState();
+
   @override
-  List<Object> get props => [articles!, error!];
+  List<Object?> get props => [];
 }
+
 
 class RemoteArticlesLoading extends RemoteArticlesState {
   const RemoteArticlesLoading();
 }
 
 class RemoteArticlesDone extends RemoteArticlesState {
-  const RemoteArticlesDone(List<ArticleEntity> article) : super(articles: article);
+  final List<ArticleEntity> articles;
+
+  const RemoteArticlesDone(this.articles);
+
+  @override
+  List<Object?> get props => [articles];
 }
 
 class RemoteArticlesError extends RemoteArticlesState {
-  const RemoteArticlesError(DioError error) : super(error: error);
+  final String message;
+
+  const RemoteArticlesError(this.message);
+
+  @override
+  List<Object?> get props => [message];
 }

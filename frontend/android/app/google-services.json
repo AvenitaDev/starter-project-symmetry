@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "787133655801",
+    "project_id": "starter-project-symmetry-avn",
+    "storage_bucket": "starter-project-symmetry-avn.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:787133655801:android:cde1754dd23fa93a991028",
+        "android_client_info": {
+          "package_name": "com.example.news_app_clean_architecture"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "787133655801-gcalhto7v534qh685aphcku3l2vpdgbt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzgc47zXI8ZVNXNXY10yRpqcYY1ck8zl8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "787133655801-gcalhto7v534qh685aphcku3l2vpdgbt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

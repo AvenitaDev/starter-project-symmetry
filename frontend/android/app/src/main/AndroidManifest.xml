@@ -1,9 +1,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.news_app_clean_architecture">
+    <!-- Galería: Android 13+ -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <!-- Galería: Android 12 y anteriores -->
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
    <application
         android:label="news_app_clean_architecture"
         android:name="androidx.multidex.MultiDexApplication"
-        
         android:icon="@mipmap/ic_launcher"
         >
         <activity

@@ -3,7 +3,17 @@ In this folder are all the [Firebase Firestore](https://firebase.google.com/docs
 You will use this folder to add the schema of the *Articles* you want to upload for the app and to add the rules that enforce this schema. 
 
 ## DB Schema
-**TODO: ADD YOUR DB SCHEMA (SCHEMA FOR "ARTICLES" AND ANY OTHER SCHEMAS) HERE**
+
+### Articles
+| Field        | Example Value                                         | Type   |
+|--------------|------------------------------------------------------|--------|
+| author       | "Lucía Fernández"                                    | string |
+| content      | "Este es el contenido completo del artículo."       | string |
+| description  | "Resumen breve del artículo sobre tecnología."      | string |
+| id           | "a1b2c3d4-e5f6-7890-abcd-1234567890ef"             | string |
+| publishedAt  | "2026-03-05T10:15:30Z"                               | string |
+| title        | "Avances recientes en IA"                            | string |
+| urlToImage   | "media/articles/a1b2c3d4-e5f6-7890-abcd-1234567890ef.jpg" | string |
 
 ## Getting Started
 Before starting to work on the backend, you must have a Firebase project with the [Firebase Firestore](https://firebase.google.com/docs/firestore), [Firebase Cloud Storage](https://firebase.google.com/docs/storage) and [Firebase Local Emulator Suite](https://firebase.google.com/docs/emulator-suite) technologies enabled.

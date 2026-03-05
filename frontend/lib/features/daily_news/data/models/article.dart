@@ -37,15 +37,37 @@ class ArticleModel extends ArticleEntity {
   }
 
   factory ArticleModel.fromEntity(ArticleEntity entity) {
+    final id = entity.id ?? _generatePredictableId(entity);
+
     return ArticleModel(
-      id: entity.id,
+      id: id,
       author: entity.author,
       title: entity.title,
       description: entity.description,
       url: entity.url,
       urlToImage: entity.urlToImage,
       publishedAt: entity.publishedAt,
-      content: entity.content
+      content: entity.content,
     );
+  }
+
+  static int _generatePredictableId(ArticleEntity entity) {
+    final parts = <String>[
+      entity.url ?? '',
+      entity.title ?? '',
+      entity.author ?? '',
+      entity.publishedAt ?? '',
+      entity.description ?? '',
+      entity.content ?? '',
+      entity.urlToImage ?? '',
+    ];
+
+    final key = parts.where((p) => p.isNotEmpty).join('|');
+
+    if (key.isEmpty) {
+      return 0;
+    }
+
+    return key.hashCode;
   }
 }
