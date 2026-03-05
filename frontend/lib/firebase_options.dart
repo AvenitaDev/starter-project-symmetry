@@ -38,23 +38,23 @@ class DefaultFirebaseOptions {
         );
     }
   }
-
+  //TODO: Add Firebase options
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCJuzkN3K9NlTio06c4_NqC2XxdKRdnxBk',
-    appId: '1:787133655801:web:84e52698a5d8de9a991028',
-    messagingSenderId: '787133655801',
-    projectId: 'starter-project-symmetry-avn',
-    authDomain: 'starter-project-symmetry-avn.firebaseapp.com',
-    storageBucket: 'starter-project-symmetry-avn.firebasestorage.app',
-    measurementId: 'G-C1CTQ9L8M0',
+    apiKey: '',
+    appId: '',
+    messagingSenderId: '',
+    projectId: '',
+    authDomain: '',
+    storageBucket: '',
+    measurementId: '',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBzgc47zXI8ZVNXNXY10yRpqcYY1ck8zl8',
-    appId: '1:787133655801:android:cde1754dd23fa93a991028',
-    messagingSenderId: '787133655801',
-    projectId: 'starter-project-symmetry-avn',
-    storageBucket: 'starter-project-symmetry-avn.firebasestorage.app',
+    apiKey: '',
+    appId: '',
+    messagingSenderId: '',
+    projectId: '',
+    storageBucket: '',
   );
 
 }

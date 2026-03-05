@@ -110,7 +110,7 @@ class _MarkdownEditorPageState extends State<MarkdownEditorPage> {
                 selectable: true,
                 styleSheet: MarkdownStyleSheet(
                   p: theme.textTheme.bodyLarge,
-                  h1: theme.textTheme.headlineMedium,
+                  h1: theme.textTheme.headlineMedium?.copyWith(color: Colors.black),
                   h2: theme.textTheme.titleLarge,
                   h3: theme.textTheme.titleMedium,
                 ),

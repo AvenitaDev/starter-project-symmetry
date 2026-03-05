@@ -20,7 +20,7 @@ class FirebaseArticleService {
 
   Future<void> addArticle(ArticleDraftModel article) async {
     await articleCollection.doc(article.id).set(article.toJson()).timeout(
-          const Duration(seconds: 3),
+          const Duration(seconds: 10),
           onTimeout: () => throw TimeoutException("No response from Firebase"),
         );
   }
