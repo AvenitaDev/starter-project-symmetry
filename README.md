@@ -3,6 +3,27 @@ Welcome to the repository for our Applicant Showcase App - an application design
 
 If you want to check the report from Adrián Vázquez Nieto, here it [is](./docs/REPORT.md)
 
+If you want to compile the app by yourself I have the devcontainer attached and the libraries should be fixed, you just need to get up and running the firebase emulator and the Enviroment Arg "--dart-define=USE_FIREBASE_EMULATOR=true" while debugging so that you can connect your emulator.
+
+If you are having trouble connecting to the emulator, then I encourage you to modify these options in main according to your needs.
+
+```dart
+//This IP corresponds to host machine in Waydroid
+  const host = String.fromEnvironment(
+    'FIREBASE_EMULATOR_HOST',
+    defaultValue: '192.168.1.95',
+    /*  defaultValue: '192.168.240.1', */
+  );
+
+  // Firestore emulator (default port 8080)
+  firestore.useFirestoreEmulator(
+    host,
+    8080,
+    //Needs to be false because i'm not using Android Emulator
+    automaticHostMapping: false,
+  );
+```
+
 ## Who will see this project?
 This project will be reviewed by senior developers at Symmetry to determine whether your capacities are suited to our fast-paced development environment. 
 We are not looking for MASTERS of their craft, we are looking for people who have the ability to learn extremely quickly and adapt to an ever-changing environment where the ability to improve is a requirement.
