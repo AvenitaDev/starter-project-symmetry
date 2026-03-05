@@ -1,6 +1,8 @@
 # Applicant Showcase App
 Welcome to the repository for our Applicant Showcase App - an application designed for job applicants of Symmetry to showcase their capacity to learn and program good code.
 
+If you want to check the report from Adrián Vázquez Nieto, here it [is](./docs/REPORT.md)
+
 ## Who will see this project?
 This project will be reviewed by senior developers at Symmetry to determine whether your capacities are suited to our fast-paced development environment. 
 We are not looking for MASTERS of their craft, we are looking for people who have the ability to learn extremely quickly and adapt to an ever-changing environment where the ability to improve is a requirement.
